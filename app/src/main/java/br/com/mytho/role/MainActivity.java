@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,8 +19,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Eventos"));
-        tabLayout.addTab(tabLayout.newTab().setText("Filtro"));
+//        tabLayout.setTabTextColors(getResources().getColorStateList(R.color.colorTextPlaceholder));
+
+        TabLayout.Tab tabEventos = tabLayout.newTab().setText("Eventos");
+
+        tabLayout.addTab(tabEventos);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_filter));
 
     }
 
