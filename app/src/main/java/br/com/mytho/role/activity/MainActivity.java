@@ -29,7 +29,7 @@ public class MainActivity extends TabActivity {
         event1.setTitle("Teatro");
 
         Event event2 = new Event();
-        event1.setTitle("Culto");
+        event2.setTitle("Culto");
 
         List<Event> events = Arrays.asList(event1, event2);
 
