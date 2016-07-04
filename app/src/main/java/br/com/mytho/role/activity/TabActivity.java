@@ -6,11 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import br.com.mytho.role.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public abstract class TabActivity extends AppCompatActivity {
     private static TabLayout tabLayout;
     private int layout;
+
+    @BindView(R.id.toolbar_main) Toolbar toolbar;
+
+    //Teste com o Butter Knife
+    //@BindView(R.id.tabanim_tabs) TabLayout tabLayout;
 
     protected TabActivity(int layout) {
         this.layout = layout;
@@ -21,9 +28,9 @@ public abstract class TabActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
 
         prepareTabs();
