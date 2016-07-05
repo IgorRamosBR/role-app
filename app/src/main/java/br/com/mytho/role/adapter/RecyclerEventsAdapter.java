@@ -1,12 +1,10 @@
 package br.com.mytho.role.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -21,7 +19,7 @@ import br.com.mytho.role.model.Event;
  */
 public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolder>{
 
-        private List<Event> eventsList;
+    private List<Event> eventsList;
 
 
 
