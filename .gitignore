@@ -1,11 +1,4 @@
-
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-
+### Android ###
 # Built application files
 *.apk
 *.ap_
@@ -46,4 +39,6 @@ captures/
 
 # Keystore files
 *.jks
-.idea
+
+### Android Patch ###
+gen-external-apklibs
