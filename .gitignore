@@ -42,3 +42,6 @@ captures/
 
 ### Android Patch ###
 gen-external-apklibs
+
+# Mac temp files
+.DS_Store
