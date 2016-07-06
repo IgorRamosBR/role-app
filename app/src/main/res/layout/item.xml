@@ -1,49 +1,285 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="0dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="0dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="3dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="match_parent"
+        android:background="#fff">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:id="@+id/list_circular_icon"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/foto"
-            app:civ_border="false"
-            android:layout_margin="12dp"
-            android:padding="4dp" />
+        <!-- IMAGE AND ALL CONTENT OVER IT -->
 
-
-        <LinearLayout
-            android:orientation="vertical"
+        <ImageView
+            android:id="@+id/eventImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@+id/list_circular_icon"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true">
+            android:adjustViewBounds="true"
+            android:src="@drawable/event_image1" />
+
+        <TextView
+            android:id="@+id/eventTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="24dp"
+            android:text="Exemplo de Título"
+            android:textColor="@color/colornum"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Place Icon + Text -->
+
+        <LinearLayout
+            android:id="@+id/eventPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/eventHour"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp">
+
+            <ImageView
+                android:id="@+id/eventPlace_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_place_black_18dp"
+                android:tint="@color/colornum" />
 
             <TextView
-                android:id="@+id/event_label"
-                android:layout_width="fill_parent"
+                android:id="@+id/eventPlace_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:layout_marginLeft="16dp"
-                android:text="Event!!!!!!" />
+                android:layout_marginLeft="8dp"
+                android:text="PARK SHOPPING - MADUREIRA"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colornum"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+
+        <!-- Event Date and Hour -->
+
+        <LinearLayout
+            android:id="@+id/eventHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/eventFlags"
+            android:layout_alignLeft="@+id/eventFlags"
+            android:layout_alignStart="@+id/eventFlags"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_access_time_black_18dp"
+                android:tint="@color/colornum" />
+
+            <TextView
+                android:id="@+id/eventHour_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="SEG, 17 Julho - 6:00 PM"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colornum"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- LINEAR LAYOUT OF EVENT FLAGS START HERE -->
+
+        <LinearLayout
+            android:id="@+id/eventFlags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/eventImage"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/eventFlags_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
+                android:background="@color/eventFlagsAccent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Gratis"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colornum"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/eventFlags_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
+                android:background="@color/eventFlagsRed"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="OpenBar"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colornum"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Event Ranking -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/eventImage"
+            android:layout_alignLeft="@+id/actionButtoms"
+            android:layout_alignStart="@+id/actionButtoms"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:id="@+id/eventRanking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="4.7"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colornum"
+                android:textSize="36dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- END EVENT FLAGS -->
+
+        <!-- END OF IMAGE AND CONTENT OVER IT -->
+
+        <!-- SUBTITTLE -->
+
+        <TextView
+            android:id="@+id/eventSubtittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventImage"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Evento comunitário da Igreja São Bartolomeu, entrada grátis com 1kg de alimento opcional."
+            android:textSize="14sp" />
+
+        <!-- END OF SUBTITTLE -->
+
+        <!-- CARDVIEW BOTTOM -->
+
+        <View
+            android:id="@+id/horizontalLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/eventSubtittle"
+            android:background="@android:color/darker_gray" />
+
+        <!-- There's a invisible View working as a "divider",  -->
+
+        <RelativeLayout
+            android:id="@+id/actionButtoms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/horizontalLine">
+
+
+            <View
+                android:id="@+id/verticalLine"
+                android:layout_width="40dp"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/darker_gray"
+                android:gravity="center"
+                android:rotation="90" />
+
+            <View
+                android:id="@+id/invisibleDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/invisibleDivider">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/exit_to_app" />
+
+                <TextView
+                    android:id="@+id/eventAccept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="#PARTIU"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/invisibleDivider">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/plus" />
+
+                <TextView
+                    android:id="@+id/eventCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8sp"
+                    android:text="1564"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/eventRed"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@android:color/black" />
-</LinearLayout>
+
+</android.support.v7.widget.CardView>
