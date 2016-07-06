@@ -27,6 +27,7 @@
 
             <TextView
                 android:id="@+id/tv_datetime"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical" />
@@ -51,6 +52,7 @@
 
             <TextView
                 android:id="@+id/tv_local"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical" />
@@ -75,28 +77,16 @@
 
             <TextView
                 android:id="@+id/tv_about"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical" />
 
         </LinearLayout>
 
+
+
     </LinearLayout>
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/ll_tv_description"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/bt_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:background="@android:color/transparent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="Partiu"
-        android:textColor="#1d80f0"
-        android:textSize="16sp" />
 
 </RelativeLayout>

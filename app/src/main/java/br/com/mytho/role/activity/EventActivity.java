@@ -13,11 +13,15 @@ import com.squareup.picasso.Picasso;
 
 import br.com.mytho.role.R;
 import br.com.mytho.role.model.Event;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class EventActivity extends AppCompatActivity {
 
-    private TextView mEventDateTime, mEventLocal, mAbout;
-    private ImageView mEventPicture;
+    @BindView(R.id.tv_datetime) TextView mEventDateTime;
+    @BindView(R.id.tv_local) TextView mEventLocal;
+    @BindView(R.id.tv_about) TextView mAbout;
+    @BindView(R.id.iv_event) ImageView mEventPicture;
     private Event event;
 
 
@@ -25,6 +29,8 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,21 +51,15 @@ public class EventActivity extends AppCompatActivity {
 
     //FILL THE VIEWS WITH CONTENTS
     private void fillViews() {
-        mEventPicture = (ImageView) findViewById(R.id.iv_event);
         Picasso
                 .with(this)
                 .load(event.getImageUri())
                 .placeholder(R.drawable.role)
                 .fit()
                 .into(mEventPicture);
-
-        mEventDateTime = (TextView) findViewById(R.id.tv_datetime);
+        
         mEventDateTime.setText("Segunda, 27 de Junho às 20h");
-
-        mEventLocal = (TextView) findViewById(R.id.tv_local);
         mEventLocal.setText("Palace Hall");
-
-        mAbout = (TextView) findViewById(R.id.tv_about);
         mAbout.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxl");
     }
 

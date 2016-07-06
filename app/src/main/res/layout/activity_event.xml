@@ -21,7 +21,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginStart="28dp"
-            app:expandedTitleMarginEnd="34dp">
+            app:expandedTitleMarginEnd="34dp" >
 
             <ImageView
                 android:id="@+id/iv_event"
