@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.events) ListView listView;
+    @BindView(R.id.events) RecyclerView recyclerView;
     @BindView(R.id.toolbar_main) Toolbar toolbar;
     @BindView(R.id.tabanim_tabs) TabLayout tabLayout;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Event> events = Arrays.asList(event1, event2);
 
-        listView.setAdapter(new EventsAdapter(this, events));
+        recyclerView.setAdapter(new RecyclerEventsAdapter(events));
 
     }
 

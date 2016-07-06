@@ -10,8 +10,6 @@ import java.util.List;
 
 import br.com.mytho.role.R;
 import br.com.mytho.role.model.Event;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by leonardocordeiro on 24/06/16.
@@ -21,12 +19,12 @@ public class EventsAdapter extends BaseAdapter {
     private Activity activity;
     private List<Event> eventos;
 
-    @BindView(R.id.event_label) TextView eventTitle;
-
     public EventsAdapter(Activity activity, List<Event> eventos) {
         this.activity = activity;
         this.eventos = eventos;
     }
+
+
 
     @Override
     public int getCount() {
@@ -47,7 +45,8 @@ public class EventsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View row = activity.getLayoutInflater().inflate(R.layout.item, viewGroup, false);
         Event event = getItem(i);
-        ButterKnife.bind(this, row);
+
+        TextView eventTitle = (TextView) row.findViewById(R.id.eventTittle);
 
         eventTitle.setText(event.getTitle());
 
