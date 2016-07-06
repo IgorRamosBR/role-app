@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.EventActivity" />
-        <activity android:name=".activity.events_demo"></activity>
+        <activity android:name=".activity.EventTest"/>
     </application>
 
 </manifest>

@@ -211,13 +211,11 @@
 
             <View
                 android:id="@+id/verticalLine"
-                android:layout_width="40dp"
-                android:layout_height="1dp"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:background="@android:color/darker_gray"
-                android:gravity="center"
-                android:rotation="90" />
+                android:gravity="center" />
 
             <View
                 android:id="@+id/invisibleDivider"
@@ -270,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:paddingBottom="8dp"
-                    android:paddingTop="8sp"
+                    android:paddingTop="8dp"
                     android:text="1564"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/eventRed"
