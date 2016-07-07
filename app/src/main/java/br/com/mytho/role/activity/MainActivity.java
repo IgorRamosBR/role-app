@@ -3,6 +3,7 @@ package br.com.mytho.role.activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_main) Toolbar toolbar;
     @BindView(R.id.tabanim_tabs) TabLayout tabLayout;
 
+    private List<Event> events;
+
+    private RecyclerView.Adapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +45,19 @@ public class MainActivity extends AppCompatActivity {
 
         prepareTabs();
 
-        Event event1 = new Event();
-        event1.setTitle("Teatro");
 
-        Event event2 = new Event();
-        event2.setTitle("Culto");
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.events);
 
-        List<Event> events = Arrays.asList(event1, event2);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        recyclerView.setAdapter(new RecyclerEventsAdapter(events));
+        EventsAdapter eventsAdapter = new EventsAdapter(this, events);
+        mAdapter = new RecyclerEventsAdapter(events);
+
+        recyclerView.setAdapter(mAdapter);
+
 
     }
 

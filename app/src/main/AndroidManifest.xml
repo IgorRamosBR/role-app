@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.PictureActivity" />
         <activity android:name=".activity.EventActivity" />
         <activity android:name=".activity.EventTest"/>
