@@ -31,7 +31,7 @@
             android:src="@drawable/event_image1" />
 
         <TextView
-            android:id="@+id/eventTittle"
+            android:id="@+id/eventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -179,7 +179,7 @@
         <!-- SUBTITTLE -->
 
         <TextView
-            android:id="@+id/eventSubtittle"
+            android:id="@+id/eventSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/eventImage"
@@ -198,17 +198,14 @@
             android:id="@+id/horizontalLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/eventSubtittle"
+            android:layout_below="@+id/eventSubtitle"
             android:background="@android:color/darker_gray" />
-
-        <!-- There's a invisible View working as a "divider",  -->
 
         <RelativeLayout
             android:id="@+id/actionButtoms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/horizontalLine">
-
 
             <View
                 android:id="@+id/verticalLine"
@@ -217,6 +214,8 @@
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/darker_gray"
                 android:gravity="center" />
+
+            <!-- This is a invisible view Working as a divider to split the screen in a half  -->
 
             <View
                 android:id="@+id/invisibleDivider"
@@ -233,7 +232,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="38dp"
                     android:layout_marginLeft="16dp"
                     android:src="@drawable/exit_to_app" />
 
