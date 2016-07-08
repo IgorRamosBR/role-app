@@ -11,4 +11,6 @@
 
     <color name="colorTextDefault">#212121</color>
     <color name="colorTextPlaceholder">#B6B6B6</color>
+
+    <color name="eventRed">#FF1744</color>
 </resources>
