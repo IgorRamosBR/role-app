@@ -45,6 +45,7 @@ public class EventActivity extends AppCompatActivity {
         fillViews();
 
         aboutExpandable();
+        imageEventClick();
 
     }
 
@@ -107,12 +108,17 @@ public class EventActivity extends AppCompatActivity {
     }
 
     //CLICK IMAGE EVENT
-    public void imageEventClick(View view) {
+    public void imageEventClick() {
+        mEventPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent pictureIntent = new Intent(EventActivity.this, PictureActivity.class);
                 pictureIntent.putExtra("uri", event.getImageUri().toString());
                 pictureIntent.putExtra("title", event.getTitle());
 
                 startActivity(pictureIntent);
+            }
+        });
     }
 
 }
