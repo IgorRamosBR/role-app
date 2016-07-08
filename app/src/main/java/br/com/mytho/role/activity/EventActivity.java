@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
 
 public class EventActivity extends AppCompatActivity {
 
-    @BindView(R.id.tv_datetime) TextView mEventDateTime;
+    @BindView(R.id.tv_data_hora) TextView mEventDateTime;
     @BindView(R.id.tv_local) TextView mEventLocal;
-    @BindView(R.id.tv_about) TextView mAbout;
+    @BindView(R.id.tv_aboutt) TextView mAbout;
     @BindView(R.id.iv_event) ImageView mEventPicture;
     private Event event;
 
@@ -35,6 +35,7 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         event = receiveEvent();
         fillViews();
 
@@ -45,7 +46,7 @@ public class EventActivity extends AppCompatActivity {
     private Event receiveEvent() {
         Event event = new Event();
         event.setTitle("Wesley Safadao");
-        event.setImageUri(Uri.parse("http://sortimentos.com/wp-content/uploads/2016/05/Wesley-Safadao.jpg"));
+        event.setImageUri(Uri.parse("http://www.festanazoom.com.br/wp-content/uploads/2015/02/banner1.jpg"));
         return event;
     }
 
