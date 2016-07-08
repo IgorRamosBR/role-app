@@ -164,8 +164,19 @@
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_below="@+id/ll_tv_description"
             android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:lines="4"
             />
 
+        <TextView
+            android:id="@+id/tv_seemore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_aboutt"
+            android:layout_toRightOf="@+id/iv_about"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Ver mais"
+            android:textColor="@color/colorAccent"/>
 
        <!-- <LinearLayout
             android:layout_width="match_parent"
@@ -237,7 +248,7 @@
 -->
     <View
         android:id="@+id/localline"
-        android:layout_below="@+id/tv_aboutt"
+        android:layout_below="@+id/tv_seemore"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
