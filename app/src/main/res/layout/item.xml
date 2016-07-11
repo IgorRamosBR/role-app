@@ -18,8 +18,6 @@
         android:layout_height="match_parent"
         android:background="#fff">
 
-        <!-- IMAGE AND ALL CONTENT OVER IT -->
-
         <ImageView
             android:id="@+id/eventImage"
             android:layout_width="match_parent"
@@ -28,21 +26,22 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
-            android:src="@drawable/event_image1" />
+            android:src="@drawable/event_image1"
+            android:contentDescription="@string/event_banner" />
+
+        <!-- IMAGE AND ALL CONTENT OVER IT -->
 
         <TextView
             android:id="@+id/eventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="24dp"
-            android:text="Exemplo de Título"
-            android:textColor="@color/colornum"
-            android:textSize="24sp"
+            android:layout_marginLeft="@dimen/content_distance_right_left"
+            android:layout_marginRight="@dimen/content_distance_right_left"
+            android:layout_marginTop="@dimen/content_distance_top_bottom"
+            android:layout_marginBottom="@dimen/content_distance_top_bottom"
+            android:text="@string/event_name"
+            android:textColor="@color/whiteText"
+            android:textSize="@dimen/text_title_size"
             android:textStyle="bold" />
 
         <!-- Place Icon + Text -->
@@ -52,25 +51,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/eventHour"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp">
+            android:layout_marginLeft="@dimen/content_distance_right_left"
+            android:layout_marginStart="@dimen/content_distance_right_left"
+            android:layout_marginBottom="@dimen/small_rows_distance">
 
             <ImageView
                 android:id="@+id/eventPlace_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_place_black_18dp"
-                android:tint="@color/colornum" />
+                android:tint="@color/whiteText"
+                android:contentDescription="@string/icon_place" />
 
             <TextView
                 android:id="@+id/eventPlace_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="PARK SHOPPING - MADUREIRA"
+                android:layout_marginLeft="@dimen/icon_to_text_distance"
+                android:layout_marginStart="@dimen/icon_to_text_distance"
+                android:text="@string/event_place"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colornum"
-                android:textSize="14sp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -82,26 +84,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/eventFlags"
-            android:layout_alignLeft="@+id/eventFlags"
-            android:layout_alignStart="@+id/eventFlags"
-            android:layout_marginBottom="8dp">
+            android:layout_marginLeft="@dimen/content_distance_right_left"
+            android:layout_marginStart="@dimen/content_distance_right_left"
+            android:layout_marginBottom="@dimen/content_distance_top_bottom">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_access_time_black_18dp"
-                android:tint="@color/colornum" />
+                android:tint="@color/whiteText"
+                android:contentDescription="@string/event_time" />
 
             <TextView
                 android:id="@+id/eventHour_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="SEG, 17 Julho - 6:00 PM"
+                android:layout_marginLeft="@dimen/icon_to_text_distance"
+                android:layout_marginStart="@dimen/icon_to_text_distance"
+                android:text="@string/event_hour"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colornum"
-                android:textSize="14sp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -113,62 +116,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/eventImage"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_marginLeft="@dimen/content_distance_right_left"
+            android:layout_marginStart="@dimen/content_distance_right_left"
+            android:layout_marginBottom="@dimen/content_distance_top_bottom">
 
             <TextView
                 android:id="@+id/eventFlags_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginStart="17dp"
                 android:background="@color/eventFlagsAccent"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="Gratis"
+                android:text="@string/eventFlag1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/colornum"
-                android:textSize="16sp"
+                android:textColor="@color/whiteText"
+                android:paddingLeft="@dimen/eventFlags_box_padding"
+                android:paddingRight="@dimen/eventFlags_box_padding"
+                android:textSize="@dimen/event_flags_text_size"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/eventFlags_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginStart="17dp"
                 android:background="@color/eventFlagsRed"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="OpenBar"
+                android:text="@string/eventFlag2"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/colornum"
-                android:textSize="16sp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/event_flags_text_size"
+                android:paddingLeft="@dimen/eventFlags_box_padding"
+                android:paddingRight="@dimen/eventFlags_box_padding"
+                android:layout_marginLeft="@dimen/eventFlags_distance"
+                android:layout_marginStart="@dimen/eventFlags_distance"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Event Ranking -->
 
         <RelativeLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/eventImage"
-            android:layout_alignLeft="@+id/actionButtoms"
-            android:layout_alignStart="@+id/actionButtoms"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="16dp">
+            android:layout_marginBottom="@dimen/eventRanking_distance_bottom"
+            android:layout_marginRight="@dimen/content_distance_right_left"
+            android:layout_marginEnd="@dimen/content_distance_right_left">
 
             <TextView
                 android:id="@+id/eventRanking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="4.7"
+                android:gravity="end"
+                android:text="@string/eventRanking"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colornum"
-                android:textSize="36dp"
+                android:textColor="@color/whiteText"
+                android:textSize="@dimen/eventRanking_size"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -183,21 +182,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/eventImage"
-            android:layout_marginBottom="24dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="24dp"
-            android:text="Evento comunitário da Igreja São Bartolomeu, entrada grátis com 1kg de alimento opcional."
-            android:textSize="14sp" />
+            android:layout_marginBottom="@dimen/content_distance_top_bottom"
+            android:layout_marginLeft="@dimen/content_distance_right_left"
+            android:layout_marginRight="@dimen/content_distance_right_left"
+            android:layout_marginTop="@dimen/content_distance_top_bottom"
+            android:text="@string/eventDescription"
+            android:textSize="@dimen/text_size_small" />
 
         <!-- END OF SUBTITTLE -->
 
-        <!-- CARDVIEW BOTTOM -->
+        <!-- CARDVIEW  BOTTOM -->
 
         <View
             android:id="@+id/horizontalLine"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/lines_size"
             android:layout_below="@+id/eventSubtitle"
             android:background="@android:color/darker_gray" />
 
@@ -209,7 +208,8 @@
 
             <View
                 android:id="@+id/verticalLine"
-                android:layout_width="1dp"
+                android:layout_width="@dimen/lines_size"
+                android:layout_marginTop="@dimen/lines_size"
                 android:layout_height="35dp"
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/darker_gray"
@@ -220,7 +220,7 @@
             <View
                 android:id="@+id/invisibleDivider"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/lines_size"
                 android:layout_centerHorizontal="true"
                 android:visibility="invisible" />
 
@@ -228,12 +228,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/invisibleDivider">
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/invisibleDivider"
+                android:layout_toStartOf="@id/invisibleDivider">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginLeft="@dimen/content_distance_right_left"
+                    android:layout_marginStart="@dimen/content_distance_right_left"
                     android:src="@drawable/exit_to_app" />
 
                 <TextView
@@ -241,12 +244,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="#PARTIU"
+                    android:layout_marginTop="@dimen/actionbutton_distance_top_bottom"
+                    android:layout_marginBottom="@dimen/actionbutton_distance_top_bottom"
+                    android:text="@string/eventAction1"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/actionbutton_size"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -254,12 +257,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/invisibleDivider">
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/invisibleDivider"
+                android:layout_toEndOf="@+id/invisibleDivider">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="@dimen/content_distance_right_left"
+                    android:layout_marginStart="@dimen/content_distance_right_left"
                     android:src="@drawable/plus" />
 
                 <TextView
@@ -267,12 +273,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="1564"
+                    android:layout_marginTop="@dimen/actionbutton_distance_top_bottom"
+                    android:layout_marginBottom="@dimen/actionbutton_distance_top_bottom"
+                    android:text="@string/eventParticipantNumber"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/eventRed"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/actionbutton_size"
                     android:textStyle="bold" />
             </RelativeLayout>
 

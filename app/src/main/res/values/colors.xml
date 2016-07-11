@@ -5,11 +5,11 @@
     <color name="colorSecundary">#424242</color>
     <color name="colorPrimaryDark">#424242</color>
     <color name="colorAccent">#1EC7CC</color>
-    <color name="colornum">#fafafa</color>
 
     <color name="eventRed">#FF1744</color>
     <color name="eventBlack">#050505</color>
     <color name="eventGold">#FFD700</color>
+    <color name="whiteText">#FAFAFA</color>
 
     <color name="selection_blue">#1EC7CC</color>
     <color name="tab_background">#212121</color>
