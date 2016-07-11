@@ -3,4 +3,16 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="event_name">Exemplo de Título</string>
+    <string name="event_banner">event_banner</string>
+    <string name="icon_place">icon_place</string>
+    <string name="event_place">PARK SHOPPING - MADUREIRA</string>
+    <string name="event_time">event_time</string>
+    <string name="event_hour">SEG, 17 Julho - 6:00 PM</string>
+    <string name="eventFlag1">Gratis</string>
+    <string name="eventFlag2">OpenBar</string>
+    <string name="eventRanking">4.7</string>
+    <string name="eventDescription">Evento comunitário da Igreja São Bartolomeu, entrada grátis com 1kg de alimento opcional.</string>
+    <string name="eventAction1">#PARTIU</string>
+    <string name="eventParticipantNumber">1564</string>
 </resources>
