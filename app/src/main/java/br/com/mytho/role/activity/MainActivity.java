@@ -82,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 ))
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        Toast.makeText(getApplication(),"abc",Toast.LENGTH_SHORT);
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        //
+                        Toast.makeText(getApplication(),"acc",Toast.LENGTH_SHORT);
                         return false;
                     }
                 })
