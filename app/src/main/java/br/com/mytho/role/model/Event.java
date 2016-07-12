@@ -1,7 +1,6 @@
 package br.com.mytho.role.model;
 
 import android.net.Uri;
-import android.widget.ImageView;
 
 /**
  * Created by leonardocordeiro on 26/06/16.

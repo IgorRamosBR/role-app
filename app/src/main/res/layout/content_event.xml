@@ -37,11 +37,11 @@
             />
 
         <TextView
+            android:id="@+id/tv_preco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="GRÁTIS"
-            android:id="@+id/tv_preco"
             android:textColor="@color/eventRed"
             android:gravity="center"
             android:textStyle="bold"
@@ -51,7 +51,7 @@
         <View
             android:id="@+id/horizontalLine"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/lines_size"
             android:layout_below="@+id/eventSubtitle"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
@@ -65,8 +65,8 @@
 
             <View
                 android:id="@+id/verticalLine"
-                android:layout_width="1dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/lines_size"
+                android:layout_height="@dimen/height_line_size"
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/darker_gray"
                 android:gravity="center" />
@@ -76,7 +76,7 @@
             <View
                 android:id="@+id/invisibleDivider"
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/lines_size"
                 android:layout_centerHorizontal="true"
                 android:visibility="invisible" />
 
@@ -101,9 +101,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Avaliacão"
+                    android:text="@string/rating"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,7 +120,7 @@
                     android:layout_centerHorizontal="true"
                     android:text="1564"
                     android:textColor="@color/eventRed"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/event_flags_text_size"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,9 +128,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Pessoas"
+                    android:text="@string/people"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -175,84 +175,16 @@
             android:layout_toRightOf="@+id/iv_about"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ver mais"
+            android:text="@string/see_more"
             android:textColor="@color/colorAccent"/>
 
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_agenda"/>
-
-            <TextView
-                android:id="@+id/tv_datetime"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"></View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_mylocation"/>
-
-            <TextView
-                android:id="@+id/tv_local"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"></View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_sort_by_size"/>
-
-            <TextView
-                android:id="@+id/tv_about"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-
-        </LinearLayout>
--->
     <View
         android:id="@+id/localline"
         android:layout_below="@+id/tv_seemore"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/lines_size"
         android:background="@android:color/darker_gray"></View>
 
     <ImageView
@@ -295,22 +227,29 @@
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <TextView
+        android:id="@+id/tv_how_to_arrive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_cidade"
         android:layout_toRightOf="@+id/iv_local"
         android:textColor="@color/colorAccent"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="VER NO MAPA"
-        android:textStyle="bold"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"/>
+        android:text="@string/how_to_arrive"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
-    <Button android:id="@+id/btnGetMoreResults"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Get more"
-        android:layout_alignParentBottom="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_event"
+        android:id="@+id/iv_mapa"
+        android:layout_below="@id/tv_how_to_arrive"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_event"
+        android:layout_below="@+id/iv_mapa"
+        android:background="@android:color/transparent">
 
-
+    </View>
 </RelativeLayout>

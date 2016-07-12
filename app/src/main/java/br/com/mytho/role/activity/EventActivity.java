@@ -25,6 +25,7 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.tv_aboutt) TextView mAbout;
     @BindView(R.id.iv_event) ImageView mEventPicture;
     @BindView(R.id.tv_seemore) TextView mSeemore;
+    @BindView(R.id.iv_mapa) ImageView mMapa;
 
     private Event event;
 
@@ -38,6 +39,7 @@ public class EventActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -72,12 +74,12 @@ public class EventActivity extends AppCompatActivity {
                     expand = true;
                     ObjectAnimator animation = ObjectAnimator.ofInt(mAbout, "maxLines", 40);
                     animation.setDuration(100).start();
-                    mSeemore.setText("Ver menos");
+                    mSeemore.setText(R.string.see_less);
                 } else {
                     expand = false;
                     ObjectAnimator animation = ObjectAnimator.ofInt(mAbout, "maxLines", 4);
                     animation.setDuration(100).start();
-                    mSeemore.setText("Ver mais");
+                    mSeemore.setText(R.string.see_more);
                 }
             }
         });
@@ -101,7 +103,13 @@ public class EventActivity extends AppCompatActivity {
                 .placeholder(R.drawable.role)
                 .fit()
                 .into(mEventPicture);
-        
+
+        Picasso
+                .with(this)
+                .load("http://mixdetemas.com.br/wp-content/gallery/google-maps/google-maps-4.jpg")
+                .fit()
+                .into(mMapa);
+
         mEventDateTime.setText("Segunda, 27 de Junho às 20h");
         mEventLocal.setText("Palace Hall");
         mAbout.setText("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxl");
