@@ -40,12 +40,10 @@ public class EventActivity extends AppCompatActivity {
 
     }
 
-
-    //AFTER, THIS METHOD WILL GET THE RESULT FROM ANOTHER ACTIVITY
     private Event receiveEvent() {
         Event event = new Event();
         event.setTitle("Wesley Safadao");
-        event.setImageUri(Uri.parse("http://sortimentos.com/wp-content/uploads/2016/05/Wesley-Safadao.jpg"));
+        event.setImageLink("http://sortimentos.com/wp-content/uploads/2016/05/Wesley-Safadao.jpg");
         return event;
     }
 
@@ -53,7 +51,7 @@ public class EventActivity extends AppCompatActivity {
     private void fillViews() {
         Picasso
                 .with(this)
-                .load(event.getImageUri())
+                .load(event.getImageLink())
                 .placeholder(R.drawable.role)
                 .fit()
                 .into(mEventPicture);
@@ -66,7 +64,7 @@ public class EventActivity extends AppCompatActivity {
     //CLICK IMAGE EVENT
     public void imageEventClick(View view) {
                 Intent pictureIntent = new Intent(EventActivity.this, PictureActivity.class);
-                pictureIntent.putExtra("uri", event.getImageUri().toString());
+                pictureIntent.putExtra("uri", event.getImageLink().toString());
                 pictureIntent.putExtra("title", event.getTitle());
 
                 startActivity(pictureIntent);
