@@ -11,6 +11,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.squareup.picasso.Picasso;
 
 import br.com.mytho.role.R;
@@ -29,7 +35,8 @@ public class EventActivity extends AppCompatActivity {
 
     private Event event;
 
-    private boolean expandable = false, expand = false;
+    private boolean expandable = false;
+    private boolean expand = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
