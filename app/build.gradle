@@ -39,5 +39,8 @@ dependencies {
 
     compile 'com.wu-man:android-oauth-client:0.4.5@aar'
 
+    compile('com.mikepenz:materialdrawer:5.3.4@aar') {
+        transitive = true
+    }
 }
 
