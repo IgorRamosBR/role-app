@@ -1,16 +1,25 @@
 package br.com.mytho.role.model;
 
-import android.net.Uri;
-import android.widget.ImageView;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Calendar;
 
 /**
  * Created by leonardocordeiro on 26/06/16.
  */
 public class Event {
-    private String title;
-    private String description;
-    private Uri imageUri;
+    private Long id;
 
+    private String title;
+    private String about;
+    private String imageLink;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm")
+    private Calendar date;
+
+    @JsonProperty("name")
     public String getTitle() {
         return title;
     }
@@ -19,16 +28,31 @@ public class Event {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAbout() {
+        return about;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
-    public Uri getImageUri() { return imageUri; }
+    public String getImageLink() { return imageLink; }
 
-    public void setImageUri(Uri imageUri) { this.imageUri = imageUri; }
+    public void setImageLink(String imageLink) { this.imageLink = imageLink; }
 
+    public Calendar getDate() {
+        return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

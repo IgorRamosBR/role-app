@@ -1,27 +1,18 @@
 package br.com.mytho.role.adapter;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
-import android.support.v7.internal.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import br.com.mytho.role.R;
 import br.com.mytho.role.model.Event;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by JLGS on 29/06/2016.
@@ -71,8 +62,8 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemTitle.setText(events.get(i).getTitle());
-        viewHolder.itemDescription.setText(events.get(i).getDescription());
-        viewHolder.itemImage.setImageURI(events.get(i).getImageUri());
+        viewHolder.itemDescription.setText(events.get(i).getAbout());
+        viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
     }
 
     @Override
