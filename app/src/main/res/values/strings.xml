@@ -15,4 +15,11 @@
     <string name="eventDescription">Evento comunitário da Igreja São Bartolomeu, entrada grátis com 1kg de alimento opcional.</string>
     <string name="eventAction1">#PARTIU</string>
     <string name="eventParticipantNumber">1564</string>
+    <string name="see_less">Ver Menos</string>
+    <string name="see_more">Ver Mais</string>
+    <string name="maybe">talvez</string>
+    <string name="go">#partiu</string>
+    <string name="people">Pessoas</string>
+    <string name="rating">Avaliação</string>
+    <string name="how_to_arrive">Como chegar</string>
 </resources>

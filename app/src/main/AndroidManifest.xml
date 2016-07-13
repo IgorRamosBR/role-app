@@ -22,8 +22,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.PictureActivity" />
-        <activity android:name=".activity.EventActivity" />
+        <activity android:name=".activity.PictureActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.EventActivity" />
+        </activity>
+        <activity android:name=".activity.EventActivity"></activity>
+
+
 
     </application>
 
