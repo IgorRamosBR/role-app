@@ -2,10 +2,12 @@ package br.com.mytho.role.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
@@ -22,12 +24,16 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
+
 import java.util.List;
 
 import br.com.mytho.role.R;
-import br.com.mytho.role.adapter.RecyclerEventsAdapter;
+
 import br.com.mytho.role.domain.service.EventService;
+import br.com.mytho.role.fragments.HighlightedFragment;
+import br.com.mytho.role.fragments.NearYouFragment;
+import br.com.mytho.role.fragments.SuggestedFragment;
 import br.com.mytho.role.model.Event;
 import br.com.mytho.role.security.OAuthAccessTokenService;
 import br.com.mytho.role.security.model.AccessToken;
@@ -43,14 +49,13 @@ import retrofit2.Response;
  */
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.events)
-    RecyclerView recyclerView;
     @BindView(R.id.toolbar_main)
     Toolbar toolbar;
     @BindView(R.id.tabanim_tabs)
     TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
 
-    private List<Event> mEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        prepareTabs();
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        prepareRecyclerView();
-
-        fillList();
+        //prepareTabs();
 
         prepareNavigationDrawer();
+
+        setupViewPager(mViewPager);
+        tabLayout.setupWithViewPager(mViewPager);
 
         OAuthAccessTokenService oAuthAccessTokenService = new OAuthAccessTokenService.Builder().build();
         Call<AccessToken> callForAccessToken = oAuthAccessTokenService.getAccessToken("public-area", "client_credentials");
@@ -174,39 +181,56 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
-    public void prepareTabs() {
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SuggestedFragment(), getResources().getString(R.string.suggested));
+        adapter.addFragment(new HighlightedFragment(), getResources().getString(R.string.highlighted));
+        adapter.addFragment(new NearYouFragment(), getResources().getString(R.string.near_you));
+
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
+   /* public void prepareTabs() {
         TabAssembler assembler = new TabAssembler(tabLayout);
 
         assembler.withIcon(R.drawable.ic_party).add();
         assembler.withIcon(R.drawable.ic_filter).add();
     }
 
-    private void fillList() {
-        Event event1 = new Event();
-        event1.setTitle("Big Title for event title size test - With Darker BG");
-        event1.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image3);
-        event1.setAbout("Etiam posuere quam ac quam. Maecenas aliquet accumsan leo. Etiam posuere quam ac quam. Maecenas aliquet accumsan leo.");
 
-        Event event2 = new Event();
-        event2.setTitle("Medium Title with whiter image");
-        event2.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image2);
-        event2.setAbout("Etiam posuere quam ac quam. Maecenas aliquet accumsan leo.");
 
-        Event event3 = new Event();
-        event3.setTitle("Small Title");
-        event3.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image1);
-        event3.setAbout("Etiam posuere quam.");
 
-        mEvents = Arrays.asList(event1, event2, event3);
-    }
-
-    public void prepareRecyclerView() {
-        recyclerView.setAdapter(new RecyclerEventsAdapter(mEvents));
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
 
     public static class TabAssembler {
         private int resource;
@@ -238,5 +262,5 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.addTab(tab);
         }
 
-    }
+    }*/
 }

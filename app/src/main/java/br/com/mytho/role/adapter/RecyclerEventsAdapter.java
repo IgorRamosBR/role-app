@@ -29,14 +29,14 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView itemImage;
-        public TextView itemTitle;
+        public TextView itemName;
         public TextView itemDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             itemImage = (ImageView)itemView.findViewById(R.id.eventImage);
-            itemTitle = (TextView)itemView.findViewById(R.id.eventTitle);
+            itemName = (TextView)itemView.findViewById(R.id.eventName);
             itemDescription = (TextView)itemView.findViewById(R.id.eventSubtitle);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(events.get(i).getTitle());
+        viewHolder.itemName.setText(events.get(i).getTitle());
         viewHolder.itemDescription.setText(events.get(i).getAbout());
         viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
     }
