@@ -22,6 +22,14 @@
     <string name="people">Pessoas</string>
     <string name="rating">Avaliação</string>
     <string name="how_to_arrive">Como chegar</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="suggested">Sugeridos</string>
+    <string name="highlighted">Em Destaque</string>
+    <string name="near_you">Perto de Você</string>
+
     <string name="categories">Categorias</string>
     <string name="free_events">Eventos Gratuitos</string>
     <string name="place">Local</string>
@@ -30,5 +38,6 @@
     <string name="eventFlag3">Hip Hop</string>
     <string name="eventFlag4">Sertanejo</string>
     <string name="eventFlag5">Pagode</string>
+
 
 </resources>
