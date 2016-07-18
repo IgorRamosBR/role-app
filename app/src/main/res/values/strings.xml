@@ -38,6 +38,9 @@
     <string name="eventFlag3">Hip Hop</string>
     <string name="eventFlag4">Sertanejo</string>
     <string name="eventFlag5">Pagode</string>
+    <string name="actives">ativos</string>
+    <string name="inactives">inativos</string>
+    <string name="avaliate">Avaliar</string>
 
 
 </resources>
