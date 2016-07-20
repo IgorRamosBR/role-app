@@ -10,6 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -20,7 +27,11 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.wuman.android.auth.AuthorizationFlow;
+import com.wuman.android.auth.OAuthManager;
+import com.wuman.android.auth.oauth2.store.SharedPreferencesCredentialStore;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +68,26 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        SharedPreferencesCredentialStore credentialStore = new SharedPreferencesCredentialStore(this, "token-store", new JacksonFactory());
+
+        AuthorizationFlow authorizationFlow = new AuthorizationFlow.Builder(BearerToken.authorizationHeaderAccessMethod(),
+                                                    AndroidHttp.newCompatibleTransport(),
+                                                    new JacksonFactory(),
+                                                    new GenericUrl("http://role-lema.rhcloud.com/rolebackend/"),
+                                                    new ClientParametersAuthentication("mobile-client", "08282424-432a-11e6-beb8-9e71128cae77"),
+                                                    "mobile-client", null)
+                                                    .setScopes(Arrays.asList("public-area"))
+                                                    .setCredentialStore(credentialStore)
+                                                    .build();
+
+        OAuthManager manager = new OAuthManager(authorizationFlow, null);
+        try {
+            Credential credentials = manager.authorizeImplicitly("userId", null, null).getResult();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         prepareTabs();
 
         prepareRecyclerView();
@@ -79,24 +110,6 @@ public class MainActivity extends AppCompatActivity {
         List<Event> events = Arrays.asList(event1, event2, event3);
 
         recyclerView.setAdapter(new RecyclerEventsAdapter(events));
-
-        OAuthAccessTokenService oAuthAccessTokenService = new OAuthAccessTokenService.Builder().build();
-        Call<AccessToken> callForAccessToken = oAuthAccessTokenService.getAccessToken("public-area", "client_credentials");
-        callForAccessToken.enqueue(new Callback<AccessToken>() {
-            @Override
-            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
-                if(!response.isSuccessful()) {
-                    // error handling
-                } else {
-                    process(response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AccessToken> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
 
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
