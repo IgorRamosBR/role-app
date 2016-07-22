@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/category"
+        android:id="@+id/tv_categoria"
+        android:textSize="@dimen/text_title_size"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sp_categoria" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/place_1"
+        android:id="@+id/tv_local"
+        android:textSize="@dimen/text_title_size"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sp_local" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_filters"
+            android:id="@+id/bt_aplicar_filtros"
+            android:layout_gravity="bottom"
+            android:background="@color/colorAccent"
+            android:textColor="@color/whiteText" />
+    </LinearLayout>
+
+</LinearLayout>

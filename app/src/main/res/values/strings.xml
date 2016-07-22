@@ -39,5 +39,10 @@
     <string name="eventFlag4">Sertanejo</string>
     <string name="eventFlag5">Pagode</string>
 
+    <string name="filter_events">Filtrar Eventos</string>
+    <string name="category">Categoria</string>
+    <string name="place_1">Local</string>
+    <string name="apply_filters">APLICAR FILTROS</string>
+
 
 </resources>
