@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +29,14 @@ import br.com.mytho.role.R;
 import br.com.mytho.role.activity.delegate.AccessTokenDelegate;
 import br.com.mytho.role.activity.delegate.EventDelegate;
 import br.com.mytho.role.adapter.ViewPagerAdapter;
-import br.com.mytho.role.domain.service.EventService;
 import br.com.mytho.role.facade.AccessTokenFacade;
+import br.com.mytho.role.facade.EventFacade;
 import br.com.mytho.role.fragments.HighlightedFragment;
 import br.com.mytho.role.fragments.NearYouFragment;
 import br.com.mytho.role.fragments.SuggestedFragment;
 import br.com.mytho.role.model.Event;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -71,34 +69,35 @@ public class MainActivity extends AppCompatActivity implements AccessTokenDelega
 
     }
 
-    private void setupToolbar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
     @Override
     public void onReceiveAccessToken() {
-        EventService service = new EventService.Builder().context(this).build();
-        service.list()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<List<Event>>() {
-            @Override
-            public void call(List<Event> events) {
-                MainActivity.this.events = (ArrayList<Event>) events;
-                setupViewPager();
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                onErrorInRetrievingAccessToken(throwable);
-            }
-        });
+        EventFacade eventFacade = new EventFacade(this);
+        eventFacade.getEvents();
     }
 
     @Override
     public void onErrorInRetrievingAccessToken(Throwable t) {
-        showErrorDialog();
+        /* TODO: implements a error handling mechanism with chain of responsability */
+        if(t instanceof UnknownHostException)
+            showConnectionErrorDialog();
+    }
+
+    @Override
+    public void onEvents(List<Event> events) {
+        this.events = (ArrayList<Event>) events;
+        setupViewPager();
+    }
+
+    @Override
+    public void onErrorInRetrievingEvents(Throwable t) {
+        /* TODO: implements a error handling mechanism with chain of responsability */
+        if(t instanceof UnknownHostException)
+            showConnectionErrorDialog();
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupNavigationDrawer() {
@@ -180,20 +179,11 @@ public class MainActivity extends AppCompatActivity implements AccessTokenDelega
         tabLayout.setupWithViewPager(mViewPager);
     }
 
-    @Override
-    public void onEvents(List<Event> events) {
-        this.events = (ArrayList<Event>) events;
-        setupViewPager();
-    }
-
-    @Override
-    public void onErrorInRetrievingEvents(Throwable t) {
-        showErrorDialog();
-    }
-
-    private void showErrorDialog() {
+    private void showConnectionErrorDialog() {
         new AlertDialog.Builder(this)
                 .setCancelable(false)
+
+                /* TODO: extract strings to strings.xml */
                 .setMessage("Não foi possível contactar o servidor, verifique seu acesso a Internet")
                 .setTitle("Sem conexão")
                 .setPositiveButton("Tentar novamente", new DialogInterface.OnClickListener() {
