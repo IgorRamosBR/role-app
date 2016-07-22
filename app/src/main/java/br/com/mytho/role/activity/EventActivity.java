@@ -91,8 +91,6 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
-
-
     //AFTER, THIS METHOD WILL GET THE RESULT FROM ANOTHER ACTIVITY
     private Event receiveEvent() {
         Event event = new Event();

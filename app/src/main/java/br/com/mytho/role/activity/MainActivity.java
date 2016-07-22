@@ -1,10 +1,11 @@
 package br.com.mytho.role.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
@@ -20,31 +21,28 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-import java.text.SimpleDateFormat;
-
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mytho.role.R;
-
+import br.com.mytho.role.activity.delegate.AccessTokenDelegate;
+import br.com.mytho.role.activity.delegate.EventDelegate;
 import br.com.mytho.role.adapter.ViewPagerAdapter;
-import br.com.mytho.role.domain.service.EventService;
+import br.com.mytho.role.facade.AccessTokenFacade;
+import br.com.mytho.role.facade.EventFacade;
 import br.com.mytho.role.fragments.HighlightedFragment;
 import br.com.mytho.role.fragments.NearYouFragment;
 import br.com.mytho.role.fragments.SuggestedFragment;
 import br.com.mytho.role.model.Event;
-import br.com.mytho.role.security.OAuthAccessTokenService;
-import br.com.mytho.role.security.model.AccessToken;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
  * Created by leonardocordeiro on 26/06/16.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AccessTokenDelegate, EventDelegate {
 
     @BindView(R.id.toolbar_main)
     Toolbar toolbar;
@@ -53,71 +51,56 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
+    private ArrayList<Event> events;
+    private AccessTokenFacade accessTokenFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.accessTokenFacade = new AccessTokenFacade(this);
+        accessTokenFacade.getAccessToken();
+
         ButterKnife.bind(this);
 
+        setupToolbar();
+        setupNavigationDrawer();
+
+    }
+
+    @Override
+    public void onReceiveAccessToken() {
+        EventFacade eventFacade = new EventFacade(this);
+        eventFacade.getEvents();
+    }
+
+    @Override
+    public void onErrorInRetrievingAccessToken(Throwable t) {
+        /* TODO: implements a error handling mechanism with chain of responsability */
+        if(t instanceof UnknownHostException)
+            showConnectionErrorDialog();
+    }
+
+    @Override
+    public void onEvents(List<Event> events) {
+        this.events = (ArrayList<Event>) events;
+        setupViewPager();
+    }
+
+    @Override
+    public void onErrorInRetrievingEvents(Throwable t) {
+        /* TODO: implements a error handling mechanism with chain of responsability */
+        if(t instanceof UnknownHostException)
+            showConnectionErrorDialog();
+    }
+
+    private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //prepareTabs();
-
-        prepareNavigationDrawer();
-
-        setupViewPager();
-
-
-        OAuthAccessTokenService oAuthAccessTokenService = new OAuthAccessTokenService.Builder().build();
-        Call<AccessToken> callForAccessToken = oAuthAccessTokenService.getAccessToken("public-area", "client_credentials");
-        callForAccessToken.enqueue(new Callback<AccessToken>() {
-            @Override
-            public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
-                if (!response.isSuccessful()) {
-                    // error handling
-                } else {
-                    process(response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AccessToken> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-
     }
 
-    public void process(Response<AccessToken> response) {
-        AccessToken token = response.body();
-        EventService service = new EventService.Builder().accessToken(token).build();
-        Call<List<Event>> callForList = service.list();
-        callForList.enqueue(new Callback<List<Event>>() {
-            @Override
-            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if (!response.isSuccessful()) {
-                    // error handling
-                } else {
-                    for (Event event : response.body()) {
-                        Toast.makeText(MainActivity.this, event.getTitle() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(event.getDate().getTime()), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Event>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-    }
-
-    private void prepareNavigationDrawer() {
-
+    private void setupNavigationDrawer() {
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
                 //Imagem do account header
@@ -178,10 +161,16 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
-
     private void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SuggestedFragment(), getResources().getString(R.string.suggested));
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("events", events);
+
+        SuggestedFragment suggestedFragment = new SuggestedFragment();
+        suggestedFragment.setArguments(bundle);
+
+        adapter.addFragment(suggestedFragment, getResources().getString(R.string.suggested));
         adapter.addFragment(new HighlightedFragment(), getResources().getString(R.string.highlighted));
         adapter.addFragment(new NearYouFragment(), getResources().getString(R.string.near_you));
 
@@ -190,4 +179,18 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    private void showConnectionErrorDialog() {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+
+                /* TODO: extract strings to strings.xml */
+                .setMessage("Não foi possível contactar o servidor, verifique seu acesso a Internet")
+                .setTitle("Sem conexão")
+                .setPositiveButton("Tentar novamente", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        accessTokenFacade.getAccessToken();
+                    }
+                }).create().show();
+    }
 }

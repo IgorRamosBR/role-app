@@ -1,5 +1,6 @@
 package br.com.mytho.role.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,8 +24,10 @@ import br.com.mytho.role.model.Event;
 public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolder> {
 
     private List<Event> events;
+    private Context context;
 
-    public RecyclerEventsAdapter(List<Event> events) {
+    public RecyclerEventsAdapter(Context context, List<Event> events) {
+        this.context = context;
         this.events = events;
     }
 
@@ -53,8 +58,7 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -63,7 +67,10 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemName.setText(events.get(i).getTitle());
         viewHolder.itemDescription.setText(events.get(i).getAbout());
-        viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
+//        viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
+        Picasso.with(context)
+               .load(events.get(i).getImageLink())
+               .into(viewHolder.itemImage);
     }
 
     @Override

@@ -3,12 +3,13 @@ package br.com.mytho.role.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by leonardocordeiro on 26/06/16.
  */
-public class Event {
+public class Event implements Serializable {
     private Long id;
 
     private String title;
