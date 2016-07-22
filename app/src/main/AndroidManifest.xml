@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name="br.com.mytho.role.app.RoleAppApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"

@@ -1,5 +1,6 @@
 package br.com.mytho.role.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,22 +24,24 @@ import br.com.mytho.role.model.Event;
 public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAdapter.ViewHolder> {
 
     private List<Event> events;
+    private Context context;
 
-    public RecyclerEventsAdapter(List<Event> events) {
+    public RecyclerEventsAdapter(Context context, List<Event> events) {
+        this.context = context;
         this.events = events;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView itemImage;
-        public TextView itemTitle;
+        public TextView itemName;
         public TextView itemDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             itemImage = (ImageView)itemView.findViewById(R.id.eventImage);
-            itemTitle = (TextView)itemView.findViewById(R.id.eventTitle);
+            itemName = (TextView)itemView.findViewById(R.id.eventName);
             itemDescription = (TextView)itemView.findViewById(R.id.eventSubtitle);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,17 +58,19 @@ public class RecyclerEventsAdapter extends RecyclerView.Adapter<RecyclerEventsAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(events.get(i).getTitle());
+        viewHolder.itemName.setText(events.get(i).getTitle());
         viewHolder.itemDescription.setText(events.get(i).getAbout());
-        viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
+//        viewHolder.itemImage.setImageURI(Uri.parse(events.get(i).getImageLink()));
+        Picasso.with(context)
+               .load(events.get(i).getImageLink())
+               .into(viewHolder.itemImage);
     }
 
     @Override

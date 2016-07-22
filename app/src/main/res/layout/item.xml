@@ -32,7 +32,7 @@
         <!-- IMAGE AND ALL CONTENT OVER IT -->
 
         <TextView
-            android:id="@+id/eventTitle"
+            android:id="@+id/eventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/content_distance_right_left"

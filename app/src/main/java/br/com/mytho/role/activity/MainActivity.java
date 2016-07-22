@@ -1,22 +1,15 @@
 package br.com.mytho.role.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -27,90 +20,88 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.wuman.android.auth.AuthorizationFlow;
-import com.wuman.android.auth.OAuthManager;
-import com.wuman.android.auth.oauth2.store.SharedPreferencesCredentialStore;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mytho.role.R;
-import br.com.mytho.role.adapter.RecyclerEventsAdapter;
+import br.com.mytho.role.activity.delegate.AccessTokenDelegate;
+import br.com.mytho.role.activity.delegate.EventDelegate;
+import br.com.mytho.role.adapter.ViewPagerAdapter;
 import br.com.mytho.role.domain.service.EventService;
+import br.com.mytho.role.facade.AccessTokenFacade;
+import br.com.mytho.role.fragments.HighlightedFragment;
+import br.com.mytho.role.fragments.NearYouFragment;
+import br.com.mytho.role.fragments.SuggestedFragment;
 import br.com.mytho.role.model.Event;
-import br.com.mytho.role.security.OAuthAccessTokenService;
-import br.com.mytho.role.security.model.AccessToken;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 
 /**
  * Created by leonardocordeiro on 26/06/16.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AccessTokenDelegate, EventDelegate {
 
-    @BindView(R.id.events)
-    RecyclerView recyclerView;
     @BindView(R.id.toolbar_main)
     Toolbar toolbar;
     @BindView(R.id.tabanim_tabs)
     TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
+
+    private ArrayList<Event> events;
+    private AccessTokenFacade accessTokenFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.accessTokenFacade = new AccessTokenFacade(this);
+        accessTokenFacade.getAccessToken();
+
         ButterKnife.bind(this);
 
-        SharedPreferencesCredentialStore credentialStore = new SharedPreferencesCredentialStore(this, "token-store", new JacksonFactory());
+        setupToolbar();
+        setupNavigationDrawer();
 
-        AuthorizationFlow authorizationFlow = new AuthorizationFlow.Builder(BearerToken.authorizationHeaderAccessMethod(),
-                                                    AndroidHttp.newCompatibleTransport(),
-                                                    new JacksonFactory(),
-                                                    new GenericUrl("http://role-lema.rhcloud.com/rolebackend/"),
-                                                    new ClientParametersAuthentication("mobile-client", "08282424-432a-11e6-beb8-9e71128cae77"),
-                                                    "mobile-client", null)
-                                                    .setScopes(Arrays.asList("public-area"))
-                                                    .setCredentialStore(credentialStore)
-                                                    .build();
+    }
 
-        OAuthManager manager = new OAuthManager(authorizationFlow, null);
-        try {
-            Credential credentials = manager.authorizeImplicitly("userId", null, null).getResult();
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void onReceiveAccessToken() {
+        EventService service = new EventService.Builder().context(this).build();
+        service.list()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<List<Event>>() {
+            @Override
+            public void call(List<Event> events) {
+                MainActivity.this.events = (ArrayList<Event>) events;
+                setupViewPager();
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                onErrorInRetrievingAccessToken(throwable);
+            }
+        });
+    }
 
-        prepareTabs();
+    @Override
+    public void onErrorInRetrievingAccessToken(Throwable t) {
+        showErrorDialog();
+    }
 
-        prepareRecyclerView();
-
-        Event event1 = new Event();
-        event1.setTitle("Big Title for event title size test - With Darker BG");
-        event1.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image3);
-        event1.setAbout("Etiam posuere quam ac quam. Maecenas aliquet accumsan leo. Etiam posuere quam ac quam. Maecenas aliquet accumsan leo.");
-
-        Event event2 = new Event();
-        event2.setTitle("Medium Title with whiter image");
-        event2.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image2);
-        event2.setAbout("Etiam posuere quam ac quam. Maecenas aliquet accumsan leo.");
-
-        Event event3 = new Event();
-        event3.setTitle("Small Title");
-        event3.setImageLink("android.resource://br.com.mytho.role/" + R.drawable.event_image1);
-        event3.setAbout("Etiam posuere quam.");
-
-        List<Event> events = Arrays.asList(event1, event2, event3);
-
-        recyclerView.setAdapter(new RecyclerEventsAdapter(events));
-
+    private void setupNavigationDrawer() {
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
                 //Imagem do account header
@@ -125,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
                         //
-                        Toast.makeText(getApplication(),"acc",Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplication(), "acc", Toast.LENGTH_SHORT);
                         return false;
                     }
                 })
@@ -164,81 +155,52 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
-                        Toast.makeText(getApplication(),"biurl :"+ position,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "biurl :" + position, Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 })
                 .build();
-
     }
 
-    public void process(Response<AccessToken> response) {
-        AccessToken token = response.body();
-        EventService service = new EventService.Builder().accessToken(token).build();
-        Call<List<Event>> callForList = service.list();
-        callForList.enqueue(new Callback<List<Event>>() {
-            @Override
-            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                if(!response.isSuccessful()) {
-                    // error handling
-                } else {
-                    for(Event event : response.body()) {
-                        Toast.makeText(MainActivity.this, event.getTitle() + " - " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(event.getDate().getTime()), Toast.LENGTH_LONG).show();
+    private void setupViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("events", events);
+
+        SuggestedFragment suggestedFragment = new SuggestedFragment();
+        suggestedFragment.setArguments(bundle);
+
+        adapter.addFragment(suggestedFragment, getResources().getString(R.string.suggested));
+        adapter.addFragment(new HighlightedFragment(), getResources().getString(R.string.highlighted));
+        adapter.addFragment(new NearYouFragment(), getResources().getString(R.string.near_you));
+
+        mViewPager.setAdapter(adapter);
+
+        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onEvents(List<Event> events) {
+        this.events = (ArrayList<Event>) events;
+        setupViewPager();
+    }
+
+    @Override
+    public void onErrorInRetrievingEvents(Throwable t) {
+        showErrorDialog();
+    }
+
+    private void showErrorDialog() {
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage("Não foi possível contactar o servidor, verifique seu acesso a Internet")
+                .setTitle("Sem conexão")
+                .setPositiveButton("Tentar novamente", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        accessTokenFacade.getAccessToken();
                     }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Event>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-    }
-
-    public void prepareTabs() {
-        TabAssembler assembler = new TabAssembler(tabLayout);
-
-        assembler.withIcon(R.drawable.ic_party).add();
-        assembler.withIcon(R.drawable.ic_filter).add();
-    }
-
-    public void prepareRecyclerView() {
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    public static class TabAssembler {
-        private int resource;
-        private String label;
-        private TabLayout tabLayout;
-
-        public TabAssembler(TabLayout layout) {
-            this.tabLayout = layout;
-        }
-
-        public TabAssembler withIcon(int resource) {
-            this.resource = resource;
-            return this;
-        }
-
-        public TabAssembler withLabel(String label) {
-            this.label = label;
-            return this;
-        }
-
-        public void add() {
-            TabLayout.Tab tab = tabLayout.newTab();
-
-            if (label == null || label.isEmpty())
-                tab.setIcon(resource);
-            else if (resource == 0)
-                tab.setText(label);
-
-            tabLayout.addTab(tab);
-        }
-
+                }).create().show();
     }
 }

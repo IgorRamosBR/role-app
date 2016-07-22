@@ -1,52 +1,53 @@
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    >
 
-    tools:context=".activity.MainActivity">
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_main"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:weightSum="1">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <ImageView
-                android:layout_width="59dp"
-                android:layout_height="21dp"
-                android:src="@drawable/role" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="59dp"
+                    android:layout_height="21dp"
+                    android:src="@drawable/role" />
+            </LinearLayout>
 
-    </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabanim_tabs"
-        android:background="@color/tab_background"
-        app:tabIndicatorHeight="4dp"
-        app:tabTextColor="@color/colorTextPlaceholder"
-        app:tabSelectedTextColor="@android:color/white"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabanim_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/tab_background"
+                app:tabIndicatorHeight="4dp"
+                app:tabTextColor="@color/colorTextPlaceholder"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabGravity="fill"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <android.support.v7.widget.RecyclerView
-        android:divider="@null"
-        android:id="@+id/events"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+</android.support.design.widget.CoordinatorLayout>
 
