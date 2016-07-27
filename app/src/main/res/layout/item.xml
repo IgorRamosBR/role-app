@@ -29,6 +29,13 @@
             android:src="@drawable/event_image1"
             android:contentDescription="@string/event_banner" />
 
+        <!-- ID INVISIBLE -->
+        <TextView
+            android:id="@+id/eventId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+
         <!-- IMAGE AND ALL CONTENT OVER IT -->
 
         <TextView
